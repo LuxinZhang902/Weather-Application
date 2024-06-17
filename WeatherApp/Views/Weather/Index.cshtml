@@ -1,0 +1,40 @@
+@model IEnumerable<WeatherApp.Models.Weather>
+
+@{
+    ViewBag.Title = "Weekly Weather Forecast";
+}
+
+<h2>Weekly Weather Forecast</h2>
+
+<div id="weatherGrid"></div>
+
+<script>
+    $(document).ready(function () {
+        $("#weatherGrid").kendoGrid({
+            dataSource: {
+                data: @Html.Raw(Json.Encode(Model)),
+                schema: {
+                    model: {
+                        fields: {
+                            Day: { type: "string" },
+                            Date: { type: "string" },
+                            Description: { type: "string" },
+                            HighTemp: { type: "string" },
+                            LowTemp: { type: "string" }
+                        }
+                    }
+                },
+                pageSize: 7
+            },
+            height: 400,
+            pageable: false,
+            columns: [
+                { field: "Day", title: "Day" },
+                { field: "Date", title: "Date" },
+                { field: "Description", title: "Description" },
+                { field: "HighTemp", title: "High Temp" },
+                { field: "LowTemp", title: "Low Temp" }
+            ]
+        });
+    });
+</script>
